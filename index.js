@@ -62,12 +62,13 @@ module.exports = options => {
 		},
 		Promise: new Promise(deferred)
 	};
-
-	setTimeout(() => {
-		if (context.getRemainingTimeInMillis() === 0) {
-			context.fail(new Error(`Task timed out after ${opts.timeout}.00 seconds`));
-		}
-	}, opts.timeout * 1000);
+	if(opts.timeout !== 0){
+		setTimeout(() => {
+			if (context.getRemainingTimeInMillis() === 0) {
+				context.fail(new Error(`Task timed out after ${opts.timeout}.00 seconds`));
+			}
+		}, opts.timeout * 1000);
+	}
 
 	return context;
 };
